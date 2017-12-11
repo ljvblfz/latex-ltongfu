@@ -1,0 +1,27 @@
+\ttl@change@i {\@ne }{chapter}{4em}{\hei \color {darkblue}}{\contentslabel {4em}}{\hspace *{0em}}{\dotfill \contentspage }\relax 
+\ttl@change@v {chapter}{}{}{}\relax 
+\contentsline {chapter}{\numberline {Chapter 1\hspace {0.3em}}绪论}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Colored boxes}{1}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}\LaTeX -Table}{3}{subsection.1.1.1}
+\contentsline {section}{\numberline {1.2}\LaTeX -Examples}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Theorems}{3}{section.1.3}
+\contentsline {section}{\numberline {1.4}graphicx}{4}{section.1.4}
+\contentsline {section}{\numberline {1.5}科学计算的一般过程}{4}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}对实际工程问题进行数学建模}{5}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}对数学问题给出数值计算方法}{5}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}对数值计算方法进行程序设计}{5}{subsection.1.5.3}
+\contentsline {subsection}{\numberline {1.5.4}上机计算并分析结果}{5}{subsection.1.5.4}
+\contentsline {section}{\numberline {1.6}数值计算方法的研究内容与特点}{6}{section.1.6}
+\contentsline {subsection}{\numberline {1.6.1}数值计算方法的研究内容}{6}{subsection.1.6.1}
+\contentsline {subsection}{\numberline {1.6.2}数值计算方法的特点}{6}{subsection.1.6.2}
+\contentsline {section}{\numberline {1.7}计算过程中的误差及其控制}{9}{section.1.7}
+\contentsline {subsection}{\numberline {1.7.1}误差的来源与分类}{9}{subsection.1.7.1}
+\contentsline {subsection}{\numberline {1.7.2}误差与有效数字}{10}{subsection.1.7.2}
+\contentsline {subsection}{\numberline {1.7.3}误差的传播}{13}{subsection.1.7.3}
+\contentsline {subsection}{\numberline {1.7.4}误差的控制}{14}{subsection.1.7.4}
+\contentsline {subsection}{\numberline {1.7.5}数值算法的稳定性}{16}{subsection.1.7.5}
+\contentsline {subsection}{\numberline {1.7.6}病态问题与条件数}{16}{subsection.1.7.6}
+\contentsline {section}{\numberline {}{习题一}}{17}{definition.1.2}
+\contentsline {chapter}{\numberline {}{\hspace {-3.5em}部分习题答案}}{19}{section*.2}
+\contentsline {chapter}{\numberline {}{\hspace {-3.5em}References}}{20}{section*.3}
+\contentsfinish 

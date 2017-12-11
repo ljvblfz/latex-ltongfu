@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (Web2C 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: book-xetex.aux
+A level-1 auxiliary file: preface/cover.aux
+A level-1 auxiliary file: preface/intro.aux
+A level-1 auxiliary file: preface/intro2.aux
+A level-1 auxiliary file: preface/preface2.aux
+A level-1 auxiliary file: preface/preface.aux
+A level-1 auxiliary file: book/chap1a.aux
+A level-1 auxiliary file: book/answer.aux
+The style file: GBT7714-2005AYLang-UTF8.bst
+Database file #1: myphd.bib
+You've used 9 entries,
+            2542 wiz_defined-function locations,
+            630 strings with 5792 characters,
+and the built_in function-call counts, 3415 in all, are:
+= -- 247
+> -- 68
+< -- 0
++ -- 30
+- -- 20
+* -- 228
+:= -- 465
+add.period$ -- 27
+call.type$ -- 9
+change.case$ -- 28
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 305
+empty$ -- 340
+format.name$ -- 21
+if$ -- 699
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 73
+newline$ -- 48
+num.names$ -- 18
+pop$ -- 77
+preamble$ -- 1
+purify$ -- 28
+quote$ -- 0
+skip$ -- 64
+stack$ -- 0
+substring$ -- 235
+swap$ -- 192
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 36
+warning$ -- 0
+while$ -- 27
+width$ -- 10
+write$ -- 101

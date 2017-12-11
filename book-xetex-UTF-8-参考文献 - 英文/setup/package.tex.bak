@@ -1,0 +1,58 @@
+%-------------------------------------宏包引用---------------------------------------------------
+\usepackage[paperwidth=185mm,paperheight=230mm,textheight=190mm,textwidth=145mm,left=20mm,right=20mm, top=25mm, bottom=15mm]{geometry}            %定义版面
+%--------------------------------------------------------------------------------------
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+%--------------------------------------------------------------------------------------
+%\usepackage{fancyhdr}                 % 页眉和页脚的相关定义
+\usepackage[CJKbookmarks, colorlinks, bookmarksnumbered=true,pdfstartview=FitH,linkcolor=black]{hyperref}   % 书签功能，选项去掉链接红色方框
+%-----------------------------------------------------------------------------------------
+%\usepackage{titlesec}                               %章节标题样式
+\usepackage{titletoc}                                   % 控制目录的宏包
+\usepackage{fancyhdr}                                % 页眉和页脚的相关定义
+\usepackage{caption2}                                % 浮动图形和表格标题样式
+\usepackage{setspace}                                % 定制表格和图形的多行标题行距
+\usepackage[perpage]{footmisc}                % 脚注控制
+%---------------------------------------------------------------------------------
+\usepackage{etex}                          %定义更多的计数器,否则警告"no room for a new \count"
+\usepackage{graphicx}                   %插图
+%\usepackage{subfigure}
+%\usepackage{picins}                      %图文混排(文包图),可带方框
+%\usepackage{picinpar}                  %图文混排(文包图)  picins在前,picinpar在后,否则有问题
+%-------------------------------------------------------------------------------------------
+\usepackage{colortbl}                      % 单元格加背景
+\usepackage{multirow}                    % 制作表格主要用到\multicolumn，\multirow和\cline,其中，要使用\multirow
+\usepackage{everb}                          % 扩展了verbatim，可以加边框、前景色，背景色和行号等  \begin{colorboxed}这里的内容可以跨页\end{colorboxed}
+\usepackage{fancybox}                    % 边框,有阴影,fancybox提供了五种式样\fbox,\shadowbox,\doublebox,\ovalbox,\Ovalbox。
+\usepackage[listings,theorems]{tcolorbox}                % 用于定义类似于beamer的环境框
+\usepackage{setspace}                     % 行间距的宏包
+\usepackage{extarrows}                  %实 现长等号等  This package provides some extensible arrows in maths. mode    (more than \xlongequal \xleftarrow \xrightarrow \xLongleftarrow \xLongrightarrow \xLongleftrightarrow
+%\usepackage{indentfirst}               % 首行缩进宏包
+%\usepackage{layouts}                    % 打印当前页面格式的宏包
+%\usepackage{color}                        % 支持彩色
+%\usepackage{overpic}                    % 加背景图等
+%\usepackage{multicol}                  % 用于实现在同一页中实现不同的分栏
+\usepackage{listings}                    % 可对关键词、注释和字符串等使用不同的字体和颜色，也可以为代码添加边框、背景等风格
+%\usepackage{flushend}                 % 分两栏后,\flushend 命令使双栏底部对齐,\raggedend 命令则取消底部对齐,文档最后有效
+%\usepackage{balance}                  % 分两栏后,\balance  命令使双栏底部对齐,\balance   命令则取消底部对齐,任何位置有效
+% -------------------------------字体等-----------------------------------------------------------
+\usepackage{times}                       % 使用Times字体的宏包
+\usepackage{amssymb}                   % AMSLaTeX宏包 用来排出更加漂亮的公式
+\usepackage{wasysym}                    %积分号直立
+\usepackage{mathrsfs}                    % 不同于\mathcal or \mathfrak 之类的英文花体字体
+\usepackage{bm}                              % 处理数学公式中的黑斜体的宏包
+\usepackage[amsmath,thmmarks]{ntheorem}         % 定理类环境宏包，其中 amsmath 选项用来兼容 AMS LaTeX 的宏包
+%----------------------------------------------------------------------------------------------------------------------------------------
+%\usepackage{flafter}                     % 因为图形可浮动到当前页的顶部，所以它可能会出现在它所在文本的前面. 要防止这种情况，可使用 flafter 宏包
+%\usepackage{endfloat}                %可将浮动对象放置到文件的最后
+%\usepackage[below]{placeins}
+%\usepackage{floatflt}                    % 图文混排用宏包
+%\usepackage{rotating}                 % 图形和表格的控制
+%\usepackage{type1cm}                % tex1cm宏包，控制字体的大小
+%--------------------------------------------------------------------------------------------------
+%\usepackage{fancyref}                    % 支持引用的宏包
+%\usepackage{cite}                        % 支持引用缩写的宏包
+\usepackage{overcite}
+\usepackage[numbers,sort&compress]{natbib}
+%--------------------------------------------------------------

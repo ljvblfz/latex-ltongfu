@@ -1,0 +1,586 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  第1章
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\defaultfont
+
+\chapter{绪论}\label{chap1}
+
+\fancypagestyle{plain}{\fancyhf{}
+\fancyhead[C]{\song{\wuhao \leftmark}}
+\fancyfoot[RO]{\kai{\wuhao.~\thepage~.}}
+\fancyfoot[LE]{\kai{\wuhao.~\thepage~.}}}
+
+
+
+本章简要介绍简单约束方程组的研究历史和现状以及几类简单约束方程组, 并给出了一些基本概念.
+同时也对本书的主要工作和内容安排作了介绍.
+
+
+
+\section{带简单约束方程组的研究历史和现状}
+
+许多数学问题可以转化为简单约束方程组, 如非线性互补问题, 盒子约束变分不等式问题, 非线性约束最优化的KKT问题, 以及一些相关问题.
+简单约束方程在国防科技、工程技术、经济金融等领域有着广泛的应用, 求解简单约束方程具有重要
+的理论意义和实用价值.
+下面给出简单约束方程组的一般形式:
+\begin{equation}\label{h1}\begin{split}
+&H(x)=0,\\
+&x\in  X. \end{split}\end{equation} 其中$X=\{x\in R^n|l\leq x\leq
+u\},~l<u,~l\in\{R\cup\{-\infty\}\}^n$ 和
+$~u\in\{R\cup\{\infty\}\}^n$.  $H:R^n\supset U\rightarrow R^n$
+是定义在开集 $U\subseteq X$上.
+
+ \eqref{h1}可转化为如下的极小化问题:
+\begin{equation}\label{h2}
+\begin{split}& \min\quad \theta(x)=\frac{1}{2}\|H(x)\|^2\quad \\
+& s.t.~~~~ x\in X.\end{split}
+\end{equation}
+当\eqref{h2}的目标函数在最优解处的函数值为0时, \eqref{h2}等价于\eqref{h1}.
+求解\eqref{h2}的算法可分为两大类: 一类是传统的迭代方法\cite{Bellavia2003, Bellavia2005, Bertsekas1982}. 从一初始点开始, 改进迭代点, 逐步优化目标函数值. 这类方法以传统的
+数学分析作为工具, 有较强的理论收敛性质, 通常能在有限步内求得问题的最优解或预先给定精度的近似解. 另一类方法是通过模拟或揭示某些自然现象或过程发展起来的智能化算法\cite{Feng2007,Vaz2007,Suman2004}. 如进化计算, 模拟退火等, 它的思想和内容涉及数学、物理学、生物进化、人工智能、
+神经科学和统计力学等方面的知识, 具有对目标函数性质要求低、易于实现、稳定性好等优点. 但智能化算法的效率低、可靠性差, 收敛性和计算复杂性等有待进一步研究和完善.
+
+本书主要研究传统的迭代方法, 其基本思想是: 给定一个初始点$x^0\in R^n,$ 按照某一迭代规则产生一个点列
+$\{x^k\},$ 使得当$\{x^k\}$是有穷点列时, 其最后一个点是\eqref{h2}的最优解. 当$\{x^k\}$是无穷点列时,
+它有极限点, 且其极限点是\eqref{h2}的最优解. 一个好的算法应具备的典型特征为: 迭代点$x^k$能稳定地逼近局部极小点$x^\ast$的邻域,
+然后快速收敛于$x^\ast.$ 当给定的某收敛准则满足时, 迭代终止. 一般地, 我们要证明迭代点列$\{x^k\}$ 的聚点为一KKT点.
+
+记$x^k$为第k次迭代点, $d^k,~\alpha_k>0$分别为第k次搜索方向和步长因子, 则第k次迭代为
+$$x^{k+1}=x^k+\alpha_kd^k.$$
+从这个迭代公式可以看出, 不同的步长因子$\alpha_k$和不同的搜索方向$d^k$构成了不同的方法.
+在单调线性搜索方法中, $\alpha_k$ 的选取满足$\theta(x^{k+1})\leq\theta(x^k),$
+而在非单调线性搜索方法中, 允许函数值增加, 这扩大了\eqref{h2}的应用范围.
+
+
+
+
+ 当$X=R^n$且$H$是连续可微时, \eqref{h1}就变为无约束方程组. 无约束方程组是简单约束方程组的一种特殊情况. 对于一般的简单约束方程组, 设计算法的一个关键就是每一步迭代都要在可行域$X$ 中. 下面简要介绍几种常见算法.
+
+
+
+
+1. 投影牛顿法\cite{Bertsekas1982}\\
+计算牛顿步
+\begin{equation}\label{h36}
+p_N^k=-(V^k)^{-1}H(x^k)
+\end{equation}
+其中$V^k\in\partial H(x^k).$
+但一般的$x^k+p_N^k\notin X,$ 因此我们使用投影得到搜索方向
+$$d^k=P_X(x^k+\alpha_kp^k_N)-x^k.$$ 其中$\alpha_k$是步长, $P_X(y)$表示$y$在$X$上的投影.
+
+在文献\cite{Sun2002}中, Sun等指出, 对于任意小的$\alpha_k,$ $d^k$有可能不是$\theta$的下降方向. 但如果$x^k$充分靠近$H(x)=0$的BD-正则解时, 对所有$\alpha_k\in(0,1],$ $d^k$是$\theta$的下降方向.
+在文献\cite{Schmidt}中, Schmidt等指出投影牛顿法在一定的条件下可以保证全局收敛性, 并且具有快速的局部收敛性.
+
+对于无约束方程组, 牛顿步存在一些不足\cite{Jorge1999}, 这些不足同样体现在投影牛顿法中, 主要有以下几方面:\\
+a) 当广义雅可比矩阵$V^k$奇异时, 牛顿步没有定义;\\
+b) 广义雅可比矩阵$V^k$比较难计算且存储量大;\\
+c) 当方程的维数比较大时, 准确的计算牛顿步太费时间;\\
+若$H$是光滑函数, 在求解牛顿步时, 可用雅可比矩阵$H^\prime(x^k)$替换广义雅可比矩阵$V^k;$
+基于上述不足, Kozakevich等提出了拟牛顿法\cite{Kozakevich1996}.
+
+
+
+2. 拟牛顿法\cite{Kozakevich1996}\\
+该方法的思想是在每一迭代步中, 搜索方向$d^k$要满足
+\begin{equation}\label{h29}
+\|H(x^k)+H^\prime(x^k)d^k\|\leq \eta\|H(x^k)\|,~x^k+d^k\in X, ~\|d^k\|\leq M,\end{equation}
+其中$\eta\in[0,1),$ $M$是一充分大的常数.
+
+尽管在文献\cite{Kozakevich1996}中Kozakevich等已经证明了该方法具有全局收敛性和超线性收敛性, 但这种方法最大的问题就是如何才能找到满足\eqref{h29}的方向$d^k$.
+
+3. 投影梯度法\cite{Goldstein1964, Levitin1966, Calamai1987}\\
+投影梯度法最早由Goldstein 和Levitin 和 Polyak 在文献\cite{Goldstein1964}和\cite{Levitin1966}中提出. 该方法
+的搜索方向为
+$$d^k=P_X(x^k-\alpha_k\nabla \theta(x^k))-x^k.$$ 其中$P_X(y)$表示$y$在$X$上的投影. 投影梯度法适用于\eqref{h2}中
+的目标函数是连续可微的. 在\cite{null2011}中, 牛善洲等指出投影梯度法具有易于实现, 以及适合求解大规模优化问题的优点.
+但该方法也会跟无约束优化问题的梯度法一样具有很慢的收敛速度.
+
+4. Levenberg-Marquardt法\cite{Kanzow2004}\\
+Levenberg-Marquardt方法是求解非线性方程最重要的方法之一. 在文献\cite{Kanzow2004}中, 作者介绍了两种
+Levenberg-Marquardt算法. 这两种算法不同之处在于搜索方向的计算.
+
+约束Levenberg-Marquardt算法:\\
+约束Levenberg-Marquardt方法的基本思想是通过计算\eqref{h2}的子问题来得到搜索方向.
+即求解如下的极小化问题
+\begin{equation}\label{h32}
+\min \|H(x^k)+G_kd\|^2+\mu_k\|d\|^2~~s.t. x^k+d\in X
+\end{equation}
+这里的$\mu_k=\mu\|H(x^k)\|^2,$ $\mu>0$是一常数, $G_k$是雅可比矩阵$H^\prime(x^k)$的近似.
+约束Levenberg-Marquardt方法的不足之处是每一步需要解一个带约束的极小化问题, 为了避免这个问题, Kanzow等又提出了
+投影Levenberg-Marquardt算法.
+
+投影Levenberg-Marquardt算法:\\
+求解下面的无约束方程
+\begin{equation}\label{h33}
+\min \|H(x^k)+G_kd_U\|^2+\mu_k\|d_U\|^2
+\end{equation}
+这里的$\mu_k=\mu\|H(x^k)\|^2,$ $\mu>0$是一常数,
+$G_k$是雅可比矩阵$H^\prime(x^k)$的近似.
+方向为$d^k=P_X(x^k+d_U^k)-x^k,$ $P_X(y)$为$y$在$X$上的投影.
+
+在\cite{Kanzow2004}中, Kanzow指出Levenberg-Marquardt法的优点是在一较弱的条件下可保证算法的局部二次收敛性,
+即用局部误差界这个假设替换雅可比矩阵$H^\prime(x^\ast)$的非奇异性. 其中$x^\ast$为$H(x)=0$的解.
+但Levenberg-Marquardt法也存在不足. 在\cite{Zhu2008}中, Zhu指出Levenberg-Marquardt法的
+每一次迭代都必须要计算较为复杂的二次规划问题, 而且子问题产生的搜索方向必须满足严格可行. 这些要求使得计算比较困难并且花费大量的时间.
+
+5. 内点仿射尺度信赖域法\cite{Kanzow2007a}\\
+内点仿射尺度信赖域法主要是求解方程\eqref{h1}是半光滑的情况.
+与一般的无约束信赖域方法比较而言, 主要区别在于仿射尺度矩阵和信赖域子问题的求解.
+定义仿射矩阵$D(x)=diag(d_1(x),\dots,d_n(x)),$ 这里的$d_i(x)$满足
+\begin{equation}\label{h34}d_i(x)
+\begin{cases}
+=0~,  &\text{如果 $x_i=l_i$ 且$[\nabla \theta(x)]_i>0$}\\
+=0~,  &\text{如果 $x_i=u_i$ 且$[\nabla \theta(x)]_i<0$}\\
+\geq0~,  &\text{如果 $x_i\in\{l_i, u_i\}$ 且$[\nabla \theta(x)]_i=0$}\\
+>0,  & \text{否则}.
+\end{cases}
+\end{equation}
+计算下面的极小化问题得到试探步
+\begin{equation}\label{h35}
+\min m_k(p):=\frac{1}{2}\|H(x^k)+V^kp\|^2~s.t. x^k+p\in intX,~~\|D(x^k)^{-1/2}p\|\leq\Delta_k
+\end{equation}
+这里的$V^k\in\partial H(x^k).$
+计算实际下降量和预测下降量
+$$ared_k:=\theta(x^k)-\theta(x^k+p^k),$$
+$$pred_k:=m_k(0)-m_k(p^k).$$
+再定义实际下降量和预测下降量的比率为
+$$r_k=\frac{ared_k}{pred_k}.$$
+根据这一比率来决定是否接受试探步以及如何调节信赖域半径.
+
+下面给出如何利用比率$r_k$来决定是否接受试探步以及如何调节信赖域半径\cite{null1994}.\\
+给出参数$0<c_3<c_4<1<c_1,~~0<c_0\leq c_2<1,$ 通过下面的式子迭代$x^k$及更新信赖域半径.
+\begin{equation}\label{h27}x^{k+1}=
+\begin{cases}
+x^k~,  &\text{如果 $r_k\leq c_0$}\\
+x^k+d^k~,  &\text{否则}\\
+\end{cases}
+\end{equation}
+如果$r_k\leq c_2,$ 令$\Delta_{k+1}\in[c_3\|d^k\|, c_4\Delta_k];$ 否则, 令$\Delta_{k+1}\in[\Delta_k, c_1\Delta_k].$
+
+在\cite{Kanzow2007a}中, Kanzow指出内点仿射尺度信赖域法可适用于半光滑方程, 每一迭代是可行的, 并且具有良好的数值结果.
+然而, 精确求解\eqref{h35}比较困难, Kanzow给出了一种近似求解\eqref{h35}的方法, 具体可见文献\cite{Kanzow2007a}.
+%
+%方程组\eqref{h1}在国防科技、工程技术、经济金融等领域有着广泛的应用, 求解方程组\eqref{h1}具有特殊重要
+%的理论意义和实用价值.
+%传统的求解方法有牛顿法、拟牛顿法等. 近年来, 文献\cite{Bellavia2005, Bellavia2003}分别讨论了内点法
+%和仿射尺度法, 文献\cite{Fan2005}给出了新的Levenberg-Marquardt方法, 文献[4-5]讨论了仿射尺度内点信赖域法.
+%
+%关于系统\eqref{h2}的解, 可参考文献
+%\cite{Kanzow2001b,Kanzow2001a,Qi2004,Sun2002,Tong2004,Ulbrich2001}.  在这些方法中, 主要有投影梯度法\cite{Calamai1987}、
+%内点法 \cite{Bellavia2005}、投影牛顿法\cite{Bertsekas1982}和信赖域法 \cite{Dennis1995}.
+%
+%带界约束的方程应用比较广泛, 在本文我们主要应用于互补问题、随机互补、非负矩阵分解.
+\section{几类简单约束方程}
+本节主要讨论由互补问题、随机互补问题和非负矩阵分解转化的方程组.
+互补问题一般可以通过NCP函数转化为带非负约束的方程, 具体可见文献\cite{Hang2006}中的第四章、第五章、第六章.
+随机互补问题也可以通过NCP函数转化为带非负约束的随机方程. 而非负矩阵分解本身就是一带非负约束的方程.
+%下面我们主要介绍一下互补问题、随机互补问题、非负矩阵分解的研究历史和现状.
+\subsection{互补问题}
+美国的R.W.Cottle在1963年首次提出了互补问题的模型. 次年, Cottle 在其博士论文中第一次提出了求解互补问题的
+数学规划算法. 互补问题被提出后, 很快在工程技术中得到了重要的应用, 如双矩阵对策和多矩阵对策, 纯交换的竞争经济的均衡, 具有生产和投资的经济均衡, 一般的价格均衡, 静态交通均衡问题, 接触问题,障碍和自由边界问题, 供应链问题等等最终都可以转化为某种形式的互补问题.
+
+ 互补问题可分为线性互补问题和非线性互补问题
+. 线性互补问题的推广形式有: 混合线性互补问题、竖直线性互补问题、水平线性互补问题、广义竖直线性互补问题和广义水平线性互补问题.
+非线性互补问题的推广形式有: 混合非线性互补问题、隐互补问题、竖直互补问题、半定互补问题等.线性互补问题是互补问题里最基本和最重要的问题,
+有关线性互补的一些结论可以推广到其他的互补问题上, 因此, 线性互补问题的研究十分重要. Cottle 和Dantzig 曾指出, 线性规划与二次规划都是线性互补问题的特例.
+自从互补问题被提出以来, 有关互补问题的可解性、解集的拓扑性质、稳定性、误差界及不同类型互补问题的算法都有了许多结果\cite{Facchinei2003, CottleR.W1992, Korpelevich1976,Chen2000,Pang1982,Fischer1992,Fischer1997,Luca11996,Tseng1996,Sun1997,Chen1996,Chen1997,Facchinei1997,Sun1999,
+Ferris1997,Sun1999a,Qi2000,Sun2002}. 下面给出线性和非线性互补问题的标准形式.
+
+线性互补问题: 令$M\in R^{n\times n}$ 是一$n\times n$阶的实矩阵, $q\in R^n$ 是一$n$ 维向量, 寻求$x\in R^n,$
+满足
+\begin{equation}\label{h8}
+x\geq 0,~~Mx+q\geq 0,~~x^T(Mx+q)=0,
+\end{equation}
+线性互补问题被记为LCP(M,q).
+
+非线性互补问题: 令 $F$ 是从$R^n$ 到 $R^n$ 的映射, 寻求$x\in R^n,$
+满足
+\begin{equation}\label{h9}
+x\geq0, F(x)\geq0  ~~  x^TF(x)=0,
+\end{equation}
+非线性互补问题被记为NCP(F). 当映射$F$是线性映射时, 即$F(x)=Mx+q,$ 则非线性互补问题转化为线性互补问题LCP(M,q).
+
+互补问题的求解有很多有效的算法, 在文献\cite{Hang2006}中有详细的介绍. 下面简要的介绍几种常见方法.
+
+1. 投影法\cite{Calamai1987, MARCOTTE29, MARCOTTE1998, Zhu1998}\\
+ 投影法是求解互补问题的一类基本而又重要的方法. 它源于Goldstein\cite{Goldstein1964} 和 Levitin-Polyak\cite{S.1966}
+的求解凸约束优化问题的投影梯度法, 包括著名的外梯度法、逐点逼近法、矩阵分裂法等.
+
+给定$R^n$的一个非空闭凸子集$\Omega,$ 定义点$y\in R^n$到$\Omega$上的投影为
+$$P_\Omega(y)=\arg min\{\|x-y\|~|,~x\in \Omega\}.$$
+若$\Omega=R^n_+=\{x\in R^n,~x\geq0\},$ 则$P_{R^n_+}(y)=\max\{0,y\}.$ 以下简记$P_{R^n_+}(\cdot)$ 为$[\cdot]_+.$
+
+投影法的基本迭代公式为
+\begin{equation}\label{h30}x^{k+1}=[x^k-\alpha F(x^k)]_+,
+\end{equation}
+其中$\alpha>0$为步长. 为了改进\eqref{h30}的收敛性结论, Korpelevich\cite{Korpelevich1976}提出了外梯度法,
+其迭代公式为
+$$\bar{x}_k=[x^k-\alpha F(x^k)]_+$$
+$$x^{k+1}=[x^k-\alpha F(\bar{x}^k)]_+$$
+投影法已有许多其他形式和改进.
+
+在\cite{Hang2006}中, 韩继业等指出投影梯度法具有计算简单、保稀疏、存储量小等优点, 但同时也具有计算比较缓慢的缺点. 为了克服这个缺点,
+Potra等在文献\cite{Potra2000}中提出了内点法.
+
+2. 内点法\cite{Potra2000,Huang2003, Zhenghai2001}\\
+ 这类方法的研究起源于Karmarkar的求解线性与凸二次规划的内点法\cite{Todd1996}.
+常见的内点法有路径跟踪法、势缩减法、
+预测-校正法、不可行内点法等.
+
+内点法的基本思想是把互补问题转化为一个与之等价的非负约束方程组, 然后用 Newton 类型法求解. 即考虑带非负约束和非负参数$\mu$的线性方程组
+\begin{equation}\label{h31}
+H(\mu, x,y)=\left(\begin{array}{c}y-Mx-q\\
+\\Xy-\mu e
+\end{array}\right)=0,~~(x,y)\in R^{2n}_+.
+\end{equation}
+该方法通过对\eqref{h31}采用牛顿法, 并使$\mu$逐渐趋向于零而得到LCP(M,q)的解.
+一般, 由于这里采用了中心路径$\{(x,y)\in R^{2n}_+|~H(\mu, x,y)=0,~0<\bar{\mu}\}$的中心邻域等概念, 并使参数
+$\mu$在中心邻域内趋于零, 这类方法又被称为路径跟踪法.
+
+在\cite{Huang2003}中, Huang指出内点法的收敛结果有大范围收敛性、局部超线性收敛性和多项式复杂性. 内点法也存在一些缺陷. 在\cite{Potra2000}中, Potra等指出内点法的主要缺陷是: 可行内点法必须事先选取一个严格可行的内点作为初始迭代点,
+ 不可行内点法虽然可以选取任一内点作为初始点, 但两者均要求迭代点列严格大于零. 这在很大程度上影响了这一方法应用的广泛性.
+
+
+3. 非光滑牛顿法\cite{Luca1996, XU1997, Gao2001, Mart'inez1999}\\
+ 它的基本思想是把互补问题转化为一个与之等价的非光滑方程组, 然后用广义牛顿类型法求解该方程组, 从而得到互补问题的解. 非光滑牛顿法包括半光滑牛顿法、正则化牛顿法.
+
+互补问题转化为非光滑方程组常常需要借助一类特殊的函数--NCP 函数.
+\begin{definition}
+函数$\varphi:R^2\rightarrow R$被称为一"NCP函数", 如对任意$(a,b)^T\in R^2,~\varphi(a,b)=0$当且仅当$a\geq0,~b\geq0,~ab=0.$
+\end{definition}
+
+常见的NCP函数有
+$$\varphi_1(a,b)=\min\{a,b\},$$
+$$\varphi_2(a,b)=\sqrt{a^2+b^2}-(a+b),$$
+$$\varphi_3(a,b)=\sqrt{[\varphi_2(a,b)]^2+\alpha(a_{+}b_{+})^2},~~\alpha>0,$$
+$$\varphi_4(a,b)=\varphi_2(a,b)-\alpha a_{+}b_{+},~~\alpha>0,$$
+$$\varphi_5(a,b)=\lambda\varphi_2(a,b)+(1-\lambda) a_{+}b_{+},~~\lambda\in(0,1),$$
+$\varphi_1(a,b)$ 也可记为$\varphi_{min}(a,b),$ $\varphi_2(a,b)$称为FB函数\cite{Fischer1992}, 也可记为$\varphi_{FB}(a,b),$ $\varphi_5(a,b)$称为惩罚FB函数\cite{Chen2000}. 利用NCP函数就可以把互补问题转化为如下的非线性方程系统
+\begin{equation}\label{h10}
+\Phi(x)=\left(\begin{array}{c}\varphi(x_1,F_1(x))\\
+\vdots\\\varphi(x_n,F_n(x))
+\end{array}\right)=0, ~~x\geq0.
+\end{equation}
+这里$F_i(x)$为$F(x)$的第i个分量,$i=1,\dots,n.$
+
+在\cite{Luca1996}中, Luca等人指出非光滑牛顿法具有Q-超线性收敛性. 但在\cite{Gao2001}中,
+Gao指出该Q-超线性收敛性是建立在$F(x)$在解处的广义雅可比矩阵是非奇异的假设之下的. Gao 还指出广义雅可比矩阵的计算比较复杂,
+并且假设非奇异性很难满足. 为了避免以上缺点, Qi\cite{Qi1998}等提出了光滑牛顿法.
+
+
+4. 光滑牛顿法\cite{Billups1995, Qi1998, Qi2000,Qi2000a, Chen2000a}\\
+ 光滑牛顿法就是用一列光滑函数$\Phi_{\tau_k}(x)$ 去逼近$\Phi(x),$ 再用牛顿型方法求解光滑化方程组$\Phi_{\tau_k}(x)=0.$ 通过光滑化方程组的解逼近非光滑方程组. 光滑牛顿法包括 Jacobian光滑化方法、修正Jacobian光滑化方法、完全光滑化牛顿方法.
+
+%早在1994年, 陈国庆在他的博士论文\cite{null1994a}中对非线性互补问题就用到了一类光滑函数,
+%但在算法中并未修正光滑参数, 而是通过在初始阶段取定非常小的参数来得到原互补问题的一个近似解; 他在其后的文献\cite{Leung1998,null1998}中引入修正光滑参数的步骤, 并证明了相应算法在适当条件下的全局收敛性.
+
+近年来光滑牛顿法吸引了众多学者的注意, 研究范围从线性互补问题扩展到非线性互补问题, 并取得了丰硕的成果. 在\cite{Billups1995}中,
+Billups等人指出光滑牛顿法的最大优势是有良好的数值结果.
+然而, 该方法的缺点是, 将一个线性互补问题转化为方程组往往是非线性的, 而且非线性程度较高, 这就导致了理论和计算的复杂性.
+
+%本文主要是利用NCP函数把互补问题转化为非负约束的方程, 然后用解简单约束方程
+%的方法来求解互补问题.
+
+\subsection{随机互补问题}
+随机互补问题是一个包含随机变量的不等式系统, 在经济和工程中有广泛的应用背景, 例如非确定条件下的交通均衡问题\cite{Agdeppa2010}, 混沌单方面接触问题\cite{Koko2011}, 以及电力市场中的随机均衡问题\cite{Zhang2008}等. 由于理论和实际方面的需要, 近年来人们开始关注随机互补问题\cite{Guerkan1999,L.2008,Fang2007,Lin2006,Lin2007,Chen2005,Chen2008}.
+随机互补问题可分为线性随机互补和非线性随机互补.
+
+设$(\Omega,\mathcal{F},\mathcal{P})$为概率空间, $\Omega\subseteq R^m.$ 假设概率分布$\mathcal{P}$已知.
+
+随机线性互补问题\cite{Guerkan1999,Chen2005, Lin2006,Fang2007,Chen2008}为:寻找$x\in R^n,$ 满足
+\begin{equation}\label{h11}
+M(\omega)x+q(\omega)\geq 0,~~x\geq
+0,~~x^T(M(\omega)x+q(\omega))=0,~~\omega\in\Omega
+\end{equation}
+其中 $M(\omega)\in R^{n\times n},~q(\omega)\in R^n$ 为随机矩阵和随机变量. 记随机线性互补问题为SLCP.
+若$\Omega$只有一个点, \eqref{h11}退化为标准的线性互补问题\eqref{h8}.
+
+非线性随机互补问题: 令 $F$ 是从$R^n\times\Omega$ 到 $R^n$ 的映射, 寻求$x\in R^n,$
+满足
+\begin{equation}\label{h12}
+x\geq0, F(x,\omega)\geq0  ~~  x^TF(x,\omega)=0,
+\end{equation}
+记非线性随机互补问题为SNCP. 当映射$F$为仿射函数时, 即$F(x,\omega)=M(\omega)x+q(\omega),~\omega\in\Omega$ 则非线性随机互补问题就转化为线性随机互补问题.
+
+一般地, 随机线性互补问题(SLCP)和随机非线性互补问题(SNCP)可看作已知的线性及非线性互补问题和随机变量
+的一种结合, 随机互补问题的两个基本特征为互补性和随机性. 互补性在均衡条件中具有重要的作用, 而随机性使得随机互补对于非确定条件下的均衡问题更为适合.
+
+随机互补问题和随机规划联系比较紧密. 对于随机规划来说, 确定方法的不同选择使得各自优化意义下的解也是不同的. 以下给出随机互补问题的几种确定性方法.
+
+1. 期望值(Expected Value, EV)再生\cite{Guerkan1999}:
+\begin{equation}\label{h13}
+x\geq0~~E[F(x,\omega)]\geq 0, ~~,~~x^TE[F(x,\omega)]=0,\end{equation}
+其中$E$表示数学期望.
+
+一般来说要精确计算$E[F(x,\omega)]$比较困难. 在\cite{Chen2004a}, Chen和Pukushima指出可以用一序列函数
+$\{G_k(x)\}$在某种程度上收敛于$E[F(x,\omega)],$ 并在求解\eqref{h13}时用$\{G_k(x)\}$代替$E[F(x,\omega)].$
+实际上, 近似函数$\{G_k(x)\}$可以通过离散分布$\{(\omega^i,p_i),~i=1,\dots,k\}$来构造, 即
+$$G_k(x):=\sum_{i=1}^kF(x,\omega^i)p_i,$$
+其中$p_i$是样本$\omega^i$的概率.
+
+利用NCP函数可以把\eqref{h13}转化为如下的非线性方程系统
+\begin{equation}\label{h10}
+\Phi(x)=\left(\begin{array}{c}\varphi(E[F_1(x,\omega)],x_1)\\
+\vdots\\\varphi(E[F_n(x,\omega)],x_n)
+\end{array}\right)=0, ~~x\geq0.
+\end{equation}
+其中 $\varphi:R^2\rightarrow
+R$ 是一 NCP 函数.
+
+
+
+
+2. 期望残差再生(Expected Residual Minimization, ERM)\cite{Chen2005}:\\
+利用NCP函数, 求解\eqref{h12}等价于求解随机方程
+\begin{equation}\label{h38}\Phi(x,\omega)=0,~~\omega\in \Omega~~ a.e.,
+\end{equation}
+其中$\Phi:R^n\times \Omega\rightarrow R^n$定义为
+$$\Phi(x,\omega)=\left(\begin{array}{c}\varphi(F_1(x,\omega),x_1)\\
+\vdots\\
+\varphi(F_n(x,\omega),x_n)
+\end{array}\right).$$
+$F_i$是$F$的第 $i$ 个分量函数, 其中$\varphi:R^2\rightarrow
+R$ 是一 NCP 函数.
+
+求解\eqref{h38}的确定性优化方法为:
+\begin{equation}\label{h14}
+\min_{x\in R^n_+}f(x):=E\{\|\Phi(x,\omega)\|^2\},\end{equation}
+我们把\eqref{h14}称为ERM再生. 对于不同的NCP函数, ERM的性质是不同的. 在\cite{Zhang2009}中,
+ Zhang和chen指出若ERM中的NCP函数为$\varphi_{min},$ 则\eqref{h14}
+中的目标函数是非光滑、非凸的.
+
+显然对于任意$\omega\in\Omega,$ $x_\omega$ 是问题 \eqref{h12}的解当且仅当它是
+\eqref{h14}当目标函数为0的最优解.
+
+
+3. 带有均衡约束的随机规划(SMPEC)\cite{Lin2006}:\\
+引入松弛变量$z(\omega)\geq 0,$ SMPEC为
+\begin{equation}\begin{split}\label{h15}
+& \min E[d^Tz(\omega)]\\
+&s.t. ~x\geq 0,~~F(x,\omega)+z(\omega)\geq0,\\
+&~~x^T(F(x,\omega)+z(\omega))=0,\\
+&~~z(\omega)\geq 0,~~\omega\in\Omega,a.e.,
+\end{split}\end{equation}
+其中a.e.表示几乎处处成立, $d$ 为分量为正的权重向量.
+
+%在本文, 我们主要是通过求解ERM得到随机互补的解.在文献\cite{Ling2008}, 作者指出, 若ERM中使用的NCP函数是FB函数,
+%则\eqref{h14}中的目标函数是连续可微, 且它的梯度是半光滑的.
+
+目前关于随机线性互补解的存在性、解集的有界性等已经有了一些结果. 如 Chen等\cite{Chen2008}研究了期望矩阵为半正定矩阵的SLCP,
+即单调SLCP的解的性质. 证明了若EV再生的解集非空有界则ERM再生的解集非空有界. Ling等\cite{Ling2008}研究了由FB函数定义的ERM再生的$SC^1$特性.
+Luo和Lin\cite{Luo2009}利用正则化间隙函数把ERM推广到随机变分不等式, 并给出了一种拟Mone Carlo方法. Agdeppa等\cite{Agdeppa2010}利用正则化间隙函数和D-间隙函数, 研究了
+随机仿射变分不等式的ERM再生, 证明了所得模型的凸性, 并将其运用到交通均衡问题.
+
+
+
+随机互补问题近年来已经成为国际优化界最为活跃的研究课题之一\cite{L.2008,Lin2009-008,Zhang2008,Luo2009,
+Lin2008,Lin2007,Jiang2008,Lin2009}. Lin 和Fukushima\cite{Lin2009-008}对有关随机变分不等式和随机互补问题进行了详细的介绍.
+
+
+
+\subsection{非负矩阵分解}
+信息时代, 每天产生大量的数据, 如视频、音频、图像、博客、微博、大量的商业信息数据等. 只有对这些数据做处理, 才能得到隐含在这些数据中的信息. 现实世界的很多数据都是非负的, 而且在很多时候, 只有非负的数据才对应有明确的物理意义. 如在图像处理和计算机视觉中, 每一个变量代表一个像素值, 像素值是非负的; 彩色的图片相当于三维的非负数据, 视频相当于四维的非负数据, 其中第四维是时间.
+
+由于实际问题中的数据一般都较为庞大, 而且存放的信息分布往往不均匀, 因此直接处理这样的数据效率较低, 这样对许多实际问题而言就失去了实用意义.
+为高效处理这些大规模的数据, 一个关键的步骤是对数据进行降维处理. 另一方面, 由于这些大规模数据信息在计算机中都以矩阵的形式存储的, 例如一幅图像的像素恰好与一个矩阵对应, 矩阵中的每个位置存放着图像中的一个像素的空间位置和色彩信息. 因此对这些大规模的数据进行处理时, 矩阵是一个常用的工具, 而对数据进行降维可以通过矩阵分解来实现.
+
+
+非负矩阵的分解最早由Paatero和他的同事在\cite{Paatero1994}中提出, 最初称为正矩阵分解(Positive matrix factorization), 此后, Paatero又在1997年和1999年分别发表了两篇论文\cite{Paatero1997,Paatero1999}. 1999年, 贝尔实验室的Daniel D.Lee和麻省理工学院H.Sebastian Seung
+合作的文章Learning the parts of objects by nonnegative matrix factorization 发表在Nature上\cite{Lee1999}.
+该文提出了一种非负矩阵分解(Non-negative Matrix Factorization,NMF)的乘性迭代算法, 由于Lee和Seung的算法实现简单、占用存储少等优点, 迅速引起了各个领域中的科学研究人员的重视, 大大地推动了非负矩阵分解的研究, 目前已被广泛应用于信号处理、模式识别、机器学习、生物医学工程、文本挖掘、
+ 子系统鉴定、癌症类的发现、天文成像
+计算机视觉和图像工程等领域中\cite{Brunet2004, Kim2007,Pauca2004,Lee2001,Berry2007, null2003,Piper2004, Y2005,Richardson1972,Rao2004,Guillamet2003, Guillamet2002,
+Guillamet2002a, Ahn2004, Lee2002, Li2005,Kochi2006, Okun2009,
+Wang2005, Liu2004, Spratling2006},并取得了良好的效果, 因此非负矩阵分解的研究越来越受到国内外学者的关注.
+
+
+通常非负矩阵(NMF)可描述如下: 给定一个带有非负的数据矩阵
+$A\in R^{m\times n}$, 找到一分解使得
+\begin{equation}\label{h16}A\approx WH\end{equation}
+$W$ 和 $H$是维数分别为$m\times
+r$ 和 $r\times n$ 的非负矩阵. $r$ 通常满足
+$r\ll\frac{mn}{m+n}.$
+
+
+对非负矩阵分解从大的方面可分为精确分解和近似分解. 由于非负矩阵分解是一个NP-hard问题, 这方面的成果还非常少, 但是, 在实际中获得数据往往是具有一定误差的, 近似分解能使问题的难度降低,
+同时更切合实际的需要, 所以相对而言, 非负矩阵分解的近似分解更受人们关注, 并取得了一系列成果.
+本文讨论的非负矩阵分解是指
+非负矩阵近似分解, 其包括两方面的内容: 模型选择和算法研究.
+
+模型选择包括低秩矩阵维数的选取和逼近程度的度量(目标函数)的选取. 非负矩阵分解得到的低秩矩阵的维数对于分解起着极其重要的作用, 一般需要根据实际问题进行选择. 由于这一维数反映了分解的规模或深度, 在实际中, 通常仅仅知道所要分解的矩阵, 其真实的分解维数是隐藏于这些数据中, 并且也无法从分解式确定出分解维数. 如果选取的维数比较小,
+其模型趋于简单, 但分解的精度则会偏低. 反过来, 如选取的维数比较大, 其分解的精度则提高, 但模型趋于复杂.
+如何选取一个最优的分解维数是非负矩阵分解的一个关键问题. 我国学者马尽文、曹斌\cite{null2007}在这一方面做了一些探索,
+但到目前为止, 人们还没有给出任何有效的非负矩阵分解的维数选取准则.
+逼近程度的度量或者说目标函数的选取, Lee和Seung\cite{Lee2002}在提出非负矩阵分解时假设分解矩阵的每一个元素
+是统计独立且服从一定的泊松分布得到一个目标函数--似然函数, 进一步在似然函数中增加常数项并取反得到新的目标函数--广义Kullback-leible散度, 这是应用最广泛的目标函数之一;
+Lee和Seung\cite{Lee2002}还提出了利用欧几里德距离的平方作为目标函数, 这是在误差矩阵是统计独立的且服从标准的正态分布而得到的一个目标函数, 也是应用最为广泛的另一目标函数;
+Kompass\cite{Kompass2007}考虑了$\beta$ 散度作为目标函数, 它代表一族目标函数, 当$\beta\rightarrow 0$时,
+它是广义Kullback-leible散度; 当$\beta=1$时, 它是欧几里德距离的平方;
+Cichochi和Zdunek\cite{Cichocki2006}提出了$\alpha$散度作为目标函数, 它也代表一族目标函数. 下面主要介绍
+广义Kullback-leible散度函数和利用欧几里德距离的平方作为目标函数.\\
+广义Kullback-leible散度函数:\\
+\begin{equation}\label{h18}\begin{split}&\min_{W,H}\sum_{i=1}^m\sum_{j=1}^n[A_{ij}\log\frac{A_{ij}}{(WH)_{ij}}-A_{ij}+(WH)_{ij}]\\
+&s.t. \quad W_{iu}\geq 0,~~H_{vj}\geq 0,\forall i,u,v,j.
+\end{split}\end{equation}
+欧几里德距离的平方函数:\\
+\begin{equation}\label{h17}
+\min_{W,H}F(W,H)\equiv\frac{1}{2}\|A-WH\|^2_F,\quad s.t.\quad W,
+H\geq 0\end{equation} 其中$W,H\geq 0$ 表示
+$W$ 和 $H$的所有元素都是非负的,  $\|\cdot\|_F$是F-范数.
+本文主要研究\eqref{h17}.
+
+
+%非负矩阵分解可转化为优化问题, 利用迭代的手段求解$W$和$H.$ 为了寻求非负矩阵的一组近似分解, 首先应
+%定义一个目标函数以便度量分解的程度和寻求合适的迭代规则. Lee和Sung引入了两种目标函数:\\
+
+在算法设计方面, 由于高效的算法是非负矩阵分解广泛应用的前提, 国内外有大批学者在这一方面进行了深入的研究, 得到了一系列成果\cite{Lee1999, Lee2001, Paatero1994}. 但非负矩阵分解的难点主要有两个方面:
+1) 这往往是一个大规模问题. 2)这是一个非凸优化问题. 首先是多最优解, 而任何算法都不能保证得到全局最优解,
+同时其KKT点也不一定是局部最优点. 这些都导致目前已有的算法收敛效果不理想、收敛理论不完善.
+
+目前求解非负矩阵分解的算法可分为三类:\\
+1. 乘性迭代算法\cite{Lee2001}\\
+\begin{equation}\label{h19}
+H^{k+1}_{bj}=H^k_{bj}\frac{((W^k)^TA)_{bj}}{((W^k)^TW^kH^k)_{bj}},~~\forall
+b,j.\end{equation}
+\begin{equation}\label{h20}W^{k+1}_{ia}=W^k_{ia}\frac{(A(H^{k+1})^T)_{ia}}{(W^kH^{k+1}(H^{k+1})^T)_{ia}},~~\forall
+i,a.\end{equation}
+该方法计算简单, 能保证分解后的矩阵的非负性, 然而该方法也存在一些不足. 第一, 若在第$k$步$H_{bj}^k=0$,
+则在随后的所有迭代中$H_{bj}=0$. 第二, 在\eqref{h19}和\eqref{h20}中, 若分母为0, 则\eqref{h19}和\eqref{h20}没有定义.
+为了避免分母为0, 一些学者\cite{Piper2004, Lin2007b}建议给\eqref{h19}和\eqref{h20}的分母加一个很小的正数. 第三, 一些文献
+如\cite{Lin2007a}指出乘性迭代算法可能收敛的慢. 第四, 乘性迭代算法不能保证聚点的存在性. Lin在文献\cite{Lin2007b}中对该算法进行了改进并证明了改进的乘性迭代算法的收敛性, 但收敛速度仍然很慢.
+
+2. 交替的最小二乘算法(ANLS)\cite{Paatero1994}\\
+Berry等人\cite{Berry2007}利用噪声或误差的F-范数平方作为目标函数, 将非负矩阵分解问题转化为带非负约束的非线性最小二乘问题, 利用带有界约束的非负最小二乘问题的求解方法, 给出了
+非负矩阵分解的交替最小二乘算法.
+\begin{equation}\label{h21}
+H^{k+1}= \arg\min_{H\geq 0}F(W^k,H),
+\end{equation}
+\begin{equation}\label{h22}
+W^{k+1}= \arg\min_{W\geq 0}F(W,H^{k+1}).
+\end{equation}
+
+ANLS算法在实际中运行较快并且有很好的收敛性. 基于上述优点, 许多学者对ANLS进行了研究, 如Zdunek \cite{Zdunek2006}, Lin \cite{Lin2007a} 和
+Paatero \cite{Paatero1994}.
+
+3. 基于梯度下降的算法\cite{Shahnaz2006, Hoyer2004, Plemmons2004}\\
+这种方法沿负梯度方向利用一维线搜索确定步长, 更新当前的解. 而在非负矩阵分解中, 由于一维搜索计算量大,
+经常用简单方法设定步长, 如Hoyer在\cite{Hoyer2004}中初始步长取1, 然后逐次减半.同时为了保证分解矩阵的非负性, 往往
+采用投影方法\cite{Chu2004, Hoyer2004, Shahnaz2006}. Chu等人\cite{Chu2004}及Lee和Seung\cite{Lee1999}的算法也可以看作是一种变形的梯度下降算法, Lin\cite{Lin2007a}
+结合投影梯度界约束优化方法提出了收敛较快的算法, 但这些基于梯度下降的算法都是一阶算法, 其收敛速度至多是线性的.
+
+
+%\begin{equation}\label{h23}\begin{split}
+%&H^{k+1}=\max(0,H^k-\alpha_H\nabla_H F(W,H))\\
+%&W^{k+1}=\max(0,W^k-\alpha_W\nabla_W F(W,H)).
+%\end{split}\end{equation}
+%这里的$\nabla_W F(W,H)=(WH-A)H^T,~~\nabla_H F(W,H)=W^T(WH-A),$
+%$\alpha_H$ 和 $\alpha_W$都是步长参数. 投影梯度法的难点在于步长的选取
+%
+%
+%但投影梯度法的理论也不完整. 主要是聚点的存在性不能得到保证.\\
+
+\section{基本概念}
+
+下面介绍一些本书用到的一些数学基础知识, 参见文献
+\cite{Bazaraa1979, null1997}.
+
+\begin{definition}
+设集合$S\subset R^n,$ 如果对任意$x_1,x_2\in S,$ 有$$ax_1+(1-a)x_2\in S,~\forall a\in[0,1],$$则称$S$是凸集.
+\end{definition}
+
+这个定义表明, 如果$x_1,x_2\in S,$ 则连接$x_1,x_2$ 的线段属于$S.$
+
+\begin{definition}
+设函数$\theta:~R^n\rightarrow R,$ 如果
+$$\theta(\lambda x_1+(1-\lambda)x_2)\leq\lambda \theta(x_1)+(1-\lambda)\theta(x_2),\forall \lambda\in[0,1],\forall x_1,x_2\in R^n$$成立, 那么称函数$\theta$为凸函数. 如果对$x_1\neq x_2$和$\lambda\in(0,1),$  严格不等式成立, 那么称函数$\theta$为严格凸函数.
+\end{definition}
+
+\begin{definition}
+设函数$\theta:~R^n\rightarrow R,$ 如果存在常数$L>0, \delta>0,$ 使得
+$$|\theta(x_1)-\theta(x_2)|\leq L\|x_1-x_2\|,~\forall x_1,x_2\in N(x,\delta)$$成立, 其中,
+$$N(x,\delta)=\{y\in R^n|~\|y-x\|<\delta\},$$
+ 那么称函数$\theta$在点$x$是局部Lipschitz的,  $L$是在点$x$的局部Lipschitz常数.
+\end{definition}
+
+如果函数$\theta$在$R^n$上的每一点都是局部Lipschitz的, 那么称函数$\theta$在$R^n$上是局部Lipschitz的.
+
+\begin{definition}
+设$H: R^n\rightarrow R^n$是Lipschitz连续的, $D_{H}$ 是$H$的全体可微点的集合, 定义$H$在点$x$的$B-$次微分为:
+$$\partial H_B(x)=\{V:~\exists\{x^k\}, x^k\in D_H,~\lim_{x^k\rightarrow x}\nabla H(x^k)=V\}.$$
+$H$在点$x$处的Clarke-次微分(简称C-次微分)为$\partial H(x)=Co\partial H_B(x),$ 其中$Co$表示集合的凸包.
+\end{definition}
+
+\begin{definition}
+设$H: R^n\rightarrow R^n$是Lipschitz连续的, 若极限
+$$\lim_{V\in \partial H(x+th^\prime), h^\prime\rightarrow h, t\downarrow0}Vh^\prime$$
+存在, 则称$D_H$在$x$处是半光滑的.
+\end{definition}
+
+\begin{definition}
+设$H: R^n\rightarrow R^n$在$x$处半光滑, 若存在$\forall V\in \partial H(x+h),~h\rightarrow 0,$ 下式成立:
+$$Vh-H^\prime(x,h)=O(\|h\|^2),$$
+ 则称$H$在$x\in R^n$处强半光滑.
+\end{definition}
+
+\begin{definition}\label{h5}
+设$x^\ast\in X.$\\
+1)如果
+\begin{equation}\label{h3}
+\theta(x^\ast)\leq\theta(x),~~\forall x\in X,
+\end{equation}
+成立, 则称$x^\ast$是问题\ref{h2}的全局最优解. 进一步, 如果对任意$x\in X$且$x\neq x^ \ast,$  \eqref{h3}中严格不等式成立, 则称$x^\ast$是全局严格最优解.\\
+2)如果对某一$\delta>0,$ 存在领域$N(x^\ast,\delta),$ 使得
+\begin{equation}\label{h4}
+\theta(x^\ast)\leq\theta(x),~~\forall x\in X\cap N(x^\ast,\delta),
+\end{equation}
+成立, 则称$x^\ast$是问题\ref{h2}的局部最优解. 进一步, 如果对任意$x\in X\cap N(x^\ast,\delta)$ 且$x\neq x^ \ast,$ \eqref{h4}中严格不等式成立, 则称$x^\ast$是局部严格最优解.
+\end{definition}
+
+\begin{definition}\label{h6}
+设$x^\ast\in X,$\\
+如果$$x^\ast_i=l_i,~~ \nabla\theta(x^\ast)_i\geq 0,$$
+$$x^\ast_i=u_i,~~ \nabla\theta(x^\ast)_i\leq 0,$$
+$$l_i< x^\ast_i< u_i,~~\nabla\theta(x^\ast)_i= 0,$$
+成立, 则称$x^\ast$是问题\ref{h2}的的K-T点.
+\end{definition}
+
+\begin{definition}\label{h7}
+对于序列$\{x^k\}$,设$x^k\rightarrow x^\ast(k\rightarrow\infty),$ 如果存在$\alpha>0$及一个与迭代次数$k$无关的常数$q>0,$
+使得$$\lim_{k\rightarrow \infty}\frac{\|x^{k+1}-x^\ast\|}{\|x^k-x^\ast\|^\alpha}=q,$$
+则称点列$\{x^k\}$具有$Q-\alpha$阶收敛速度. 特别的,\\
+1)若$\alpha=1,q>0,$ 称$\{x^k\}$具有Q-线性收敛速度;\\
+2)若$1<\alpha<2,~q>0,$ 或$\alpha=1,~q=0,$ 称$\{x^k\}$具有Q-超线性收敛;\\
+3)若$\alpha=2,$ 称$\{x^k\}$具有Q-二阶收敛速度.
+\end{definition}
+
+\section{本文的主要工作与结构安排}
+本书主要研究了几类简单约束方程. 全书共分七章,
+具体内容安排如下:
+
+第\ref{chap1}章是绪论. 简要介绍了简单约束方程的研究历史及现状, 其次介绍了互补问题、随机互补问题、非负矩阵分解的研究进展, 给出了一些基本概念.
+
+第\ref{chap2}章采用了非单调的思想和积极集策略, 提出了求解带界约束半光滑方程组的信赖域方法, 并应用在互补问题上.
+
+第\ref{chap4}章提出了求解非负约束方程组的分解算法并把该算法应用在互补问题上. 在该方法中, 首先讨论了维数为2的带非负约束的二次规划解的性质. 其次, 把非负约束方程转化为一个非负约束的最小二乘子问题, 然后运用分解算法求解该最小二乘子问题得到原问题的解.
+
+第\ref{chap3}章采用矩形邻域作为信赖域, 在引入了两个方向, 且每次迭代中只有一个方向被选择的基础上, 给出了一种新的信赖域算法求解简单约束方程组并把该算法应用于随机互
+补问题,  在一定的假设条件下证明了二次收敛性,  并且该二次收敛性不依赖于方程是否有解.
+
+%提出了一种新的信赖域算法求解简单约束方程组并把该算法应用于随机互补问题, 在一定的假设条件下证明了二次收敛性,  并且改二次收敛性不依赖于方程是否有解.  首先, 信赖域用的是矩形邻域. 其次, 定义了两个方向, 在每次迭代中只有一个方向被选择.
+
+第\ref{chap5}章基于BB步长.设计了一种求解随机互补问题的可行性算法.
+
+
+%提出了求解随机互补问题的基于BB 的可行性算法. 在该方法中, 变量$W$和$H$是同时进行迭代, 而不是交替进行迭代.
+第\ref{chap6}章提出了求解非负矩阵分解的非单调投影梯度法.  在该方法中, 变量$W$和$H$是同时进行迭代, 而不是交替进行迭代. 在一定的条件下分析了收敛性.
+
+
+第\ref{chap7}章给出了求解非负矩阵分解的交替最小二乘法(ANLS)的两个修正策略. 对于ANLS来说, 若聚点存在, 则该聚点就是原问题的稳定点. 但难点是目前的方法都难于证明聚点的存在性. 为此, 本章提出了两个修正策略, 这两个修正策略能保证修正后的点列聚点是存在的, 并且该聚点就是原问题的稳定点. 对于所有的ANLS, 这两个修正策略都适用.
+
+
+总之, 本书致力于几类简单约束方程的算法研究. 限于时间、条件和个人的水平,
+书中欠缺之处在所难免, 恳请指正.

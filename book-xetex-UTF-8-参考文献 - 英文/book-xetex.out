@@ -1,0 +1,24 @@
+\BOOKMARK [0][-]{chapter.1}{Chapter 1  绪论}{}% 1
+\BOOKMARK [1][-]{section.1.1}{1.1\040Colored\040boxes}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{1.1.1\040LaTeX-Table}{section.1.1}% 3
+\BOOKMARK [1][-]{section.1.2}{1.2\040LaTeX-Examples}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.3}{1.3\040Theorems}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.4}{1.4\040graphicx}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.5}{1.5 科学计算的一般过程}{chapter.1}% 7
+\BOOKMARK [2][-]{subsection.1.5.1}{1.5.1 对实际工程问题进行数学建模}{section.1.5}% 8
+\BOOKMARK [2][-]{subsection.1.5.2}{1.5.2 对数学问题给出数值计算方法}{section.1.5}% 9
+\BOOKMARK [2][-]{subsection.1.5.3}{1.5.3 对数值计算方法进行程序设计}{section.1.5}% 10
+\BOOKMARK [2][-]{subsection.1.5.4}{1.5.4 上机计算并分析结果}{section.1.5}% 11
+\BOOKMARK [1][-]{section.1.6}{1.6 数值计算方法的研究内容与特点}{chapter.1}% 12
+\BOOKMARK [2][-]{subsection.1.6.1}{1.6.1 数值计算方法的研究内容}{section.1.6}% 13
+\BOOKMARK [2][-]{subsection.1.6.2}{1.6.2 数值计算方法的特点}{section.1.6}% 14
+\BOOKMARK [1][-]{section.1.7}{1.7 计算过程中的误差及其控制}{chapter.1}% 15
+\BOOKMARK [2][-]{subsection.1.7.1}{1.7.1 误差的来源与分类}{section.1.7}% 16
+\BOOKMARK [2][-]{subsection.1.7.2}{1.7.2 误差与有效数字}{section.1.7}% 17
+\BOOKMARK [2][-]{subsection.1.7.3}{1.7.3 误差的传播}{section.1.7}% 18
+\BOOKMARK [2][-]{subsection.1.7.4}{1.7.4 误差的控制}{section.1.7}% 19
+\BOOKMARK [2][-]{subsection.1.7.5}{1.7.5 数值算法的稳定性}{section.1.7}% 20
+\BOOKMARK [2][-]{subsection.1.7.6}{1.7.6 病态问题与条件数}{section.1.7}% 21
+\BOOKMARK [1][-]{definition.1.2}{ 习题一}{chapter.1}% 22
+\BOOKMARK [0][-]{section*.2}{ 部分习题答案}{}% 23
+\BOOKMARK [0][-]{section*.3}{\040References}{}% 24
